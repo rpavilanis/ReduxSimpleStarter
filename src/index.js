@@ -2,25 +2,27 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
 import YTSearch from 'youtube-api-search';
+import VideoList from './components/video_list';
 
 const API_KEY = 'AIzaSyCL-ka3NJwNL-sDJO3O6RY5qsioNXG3H8c';
-
-YTSearch({key: API_KEY, term: 'surfboards'}, function(data) {
-  console.log(data);
-})
 
 // Create new component that will create some HTML
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = { videos: [] };
+
+    YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
+      this.setState({ videos });
+    });
   }
-  
+
   render() {
     return (
       <div>
         <SearchBar />
+        <VideoList videos={this.state.videos} />
       </div>
     )
   }
