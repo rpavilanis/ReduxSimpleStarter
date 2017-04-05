@@ -1,0 +1,16 @@
+import axious from 'axious';
+
+const API_KEY = '2ce3d87770146f0c2c6ccf846c061849';
+const ROOT_URL = `http://samples.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
+
+export const FETCH_WEATHER = 'FETCH_WEATHER';
+
+export function fetchWeather(city) {
+  const url = `${ROOT_URL}&q=${city},us`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_WEATHER,
+    payload: request
+  };
+}
